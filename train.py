@@ -9,7 +9,9 @@ import torchvision.transforms as T
 import math
 import sys
 import time
-#python train.py --config configs/train.json --epochs 40 --batch-size 1 --device cuda
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
+import numpy as np
+# python train.py --config configs/train.json --epochs 40 --batch-size 1 --device cuda
 
 # --------- CPU/GPU ----------
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
@@ -84,17 +86,49 @@ def train_one_epoch(model, optimizer, data_loader, device, epoch, print_freq):
     torch.cuda.empty_cache()
 
 
+from sklearn.metrics import precision_score, recall_score, f1_score, accuracy_score, confusion_matrix
+import numpy as np
+
 @torch.inference_mode()
 def evaluate(model, data_loader, device):
     model.eval()
     print("Evaluating...")
-    total = 0
-    with torch.no_grad():
-        for images, targets in data_loader:
-            images = list(img.to(device) for img in images)
-            model(images)  # just forward, no metrics for now
-            total += len(images)
-    print(f"Evaluation done on {total} images.")
+
+    all_preds = []
+    all_labels = []
+
+    for images, targets in data_loader:
+        images = list(img.to(device) for img in images)
+        outputs = model(images)
+
+        for output, target in zip(outputs, targets):
+            true_labels = target["labels"].cpu().numpy()
+
+            if len(output["scores"]) > 0:  # if model predicted something
+                best_idx = output["scores"].argmax().item()
+                pred_label = output["labels"][best_idx].cpu().item()
+            else:
+                pred_label = 0  # background / no detection
+
+            # use majority GT label (if multiple objects, just pick first)
+            true_label = true_labels[0] if len(true_labels) > 0 else 0
+
+            all_preds.append(pred_label)
+            all_labels.append(true_label)
+
+    # ✅ Now lengths will match
+    precision = precision_score(all_labels, all_preds, average="weighted", zero_division=0)
+    recall = recall_score(all_labels, all_preds, average="weighted", zero_division=0)
+    f1 = f1_score(all_labels, all_preds, average="weighted", zero_division=0)
+    acc = accuracy_score(all_labels, all_preds)
+    cm = confusion_matrix(all_labels, all_preds)
+
+    print(f"Precision: {precision:.4f}")
+    print(f"Recall:    {recall:.4f}")
+    print(f"F1 Score:  {f1:.4f}")
+    print(f"Accuracy:  {acc:.4f}")
+    print("Confusion Matrix:\n", cm)
+
 
 
 # --------- Transform wrapper ----------
