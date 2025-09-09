@@ -1,3 +1,4 @@
-env/
-configs/configs.json
-data/coco
+"env/"
+"configs/configs.json"
+"data/coco"
+"configs/config.json" 
