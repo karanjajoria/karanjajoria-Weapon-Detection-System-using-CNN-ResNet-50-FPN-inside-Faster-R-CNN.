@@ -1,0 +1,5 @@
+{
+  "data_root": "C:/Users/KARAN/Desktop/College/projects/MINI Project Sessions/weapon_detector_project/data/coco",
+  "num_classes": 3,
+  "class_names": ["__background__", "knife", "handgun"]
+}

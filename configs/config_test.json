@@ -1,0 +1,15 @@
+{
+  "data_root": "data/coco",
+  "num_classes": 3,
+  "class_names": [
+    "__background__",
+    "knife",
+    "handgun"
+  ],
+  "twilio": {
+    "account_sid": "your_account_sid_here",
+    "auth_token": "your_auth_token_here",
+    "from_number": "your_twilio_number_here"
+  },
+  "sms_message": "Weapon detected nearby. Check webcam feed immediately."
+}
