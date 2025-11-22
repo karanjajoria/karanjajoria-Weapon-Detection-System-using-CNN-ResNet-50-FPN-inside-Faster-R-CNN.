@@ -1,4 +1,24 @@
-"env/"
-"configs/configs.json"
-"data/coco"
-"configs/config.json" 
+# Ignore everything
+*
+
+# But keep these folders (add your list here)
+!models/
+!scripts/
+!Documents/
+!Images/
+!configs/
+!tmp/
+
+# Keep these specific files
+!README.md
+!requirement.txt
+!train.py
+!cam.py
+!best.pt
+!YOLO.png
+!train.yaml
+!yolov8l.pt
+
+
+# Keep the .gitignore itself
+!.gitignore
