@@ -2,7 +2,6 @@
 
 Quick scaffold that:
 - Fine-tunes a Faster R-CNN (ResNet50 FPN) on COCO-style weapon dataset using PyTorch.
-<<<<<<< HEAD
 - Runs webcam inference, applies SORT tracker, counts consecutive detections for the same tracked object, and triggers an SMS alert after 5 consecutive frames.
 - Uses Twilio for SMS (you must supply account credentials).
 
@@ -19,12 +18,10 @@ Quick scaffold that:
 ## Structure
 - `train.py` - training script.
 - `cam.py` - webcam inference.
->>>>>>> f2e5edf (Better performance of model)
 - `requirements.txt` - Python deps.
 - `configs/` - example config.
 
 ## Before you run
-<<<<<<< HEAD
 1. Place your COCO-style dataset ZIP at `data/dataset.zip` and extract to `data/coco/` with `annotations/` and `images/`.
 2. Install dependencies:
    ```
@@ -53,21 +50,17 @@ Quick scaffold that:
    ```
    python scripts/cam.py --model scripts/best.pt --source 0
    ```
->>>>>>> f2e5edf (Better performance of model)
 
 ## Useful commands
 Train:
 ```
-<<<<<<< HEAD
 python train.py --config configs/config.json --epochs 10 --batch-size 4 --device cuda
 =======
 python train.py
->>>>>>> f2e5edf (Better performance of model)
 ```
 
 Run webcam:
 ```
-<<<<<<< HEAD
 python detect_webcam.py --config configs/config.json --device cuda
 =======
 python scripts/cam.py --model scripts/best.pt --source 0
