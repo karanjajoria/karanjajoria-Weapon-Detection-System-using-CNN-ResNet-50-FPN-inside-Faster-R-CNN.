@@ -1,0 +1,21 @@
+# train.yaml — YOLOv8 training configuration
+
+model: yolov8l.pt          # Pretrained YOLOv8 Large model
+data: configs/data.yaml    # Path to dataset config file
+epochs: 40               # Number of training epochs
+batch: 8                   # Batch size for 6GB GPU (increase to 16 if enough VRAM)
+imgsz: 640                 # Image resolution
+device: 0                  # GPU 0 (RTX 4050)
+workers: 4                 # Dataloader workers (adjust per CPU)
+project: runs/detect       # Save runs inside this folder
+name: weapons_yolov8l      # Run name
+optimizer: SGD             # Optimizer type
+lr0: 0.01                  # Initial learning rate
+momentum: 0.937            # Momentum
+weight_decay: 0.0005       # L2 regularization
+warmup_epochs: 3.0         # Warmup period
+augment: True              # Enable data augmentation
+cache: False               # Disable caching (set to True if enough RAM)
+patience: 50               # Early stopping patience
+imgsz_min: 640             # Minimum image size for multi-scale training
+imgsz_max: 640             # Maximum image size for multi-scale training
